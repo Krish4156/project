@@ -1,34 +1,31 @@
 version: '3'
 services:
-        sqlos:
-                image: mysql:5.7
-                volumes:
-                        - mysql_storage_new:/vat/lib/mysql
-                restart: always
-                environment:
-                        MYSQL_ROOT_PASSWORD: rootpass
-                        MYSQL_USER: nikhil
-                        MYSQL_PASSWORD: redhat
-                        MYSQL_DATABASE: mydb
-
-
-        wordpressos:
-                image: wordpress:5.1.1-php7.3-apache
-                restart: always
-                depends_on:
-                        - sqlos
-                ports:
-                        - 8081:80
-                environment:
-                        WORDPRESS_DB_HOST: sqlos
-                        WORDPRESS_DB_USER: nikhil
-                        WORDPRESS_DB_PASSWORD: redhat
-                        WORDPRESS_DB_NAME: mydb
-                volumes: 
-                        - wp_storage_new:/var/www/html
+  dbos:
+    image: krushnalinux/mysql:5.7
+    volumes:
+      - mysql_storage_new:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_USER: krushna
+      MYSQL_PASSWORD: redhat
+      MYSQL_DATABASE: postfixadmin
+  postfixadmin:
+    image: kshitizlinux/postfixadmin
+    volumes:
+      - web_new:/var/www/html
+    ports:
+      - 8080:80
+    depends_on:
+      - dbos
+    restart: always
+    environment:
+      POSTFIXADMIN_DB_TYPE: mysqli
+      POSTFIXADMIN_DB_HOST: dbos
+      POSTFIXADMIN_DB_USER: root
+      POSTFIXADMIN_DB_PASSWORD: pass
+      POSTFIXADMIN_DB_NAME: postfixadmin
 
 volumes:
-        wp_storage_new:
-        mysql_storage_new:
-
-
+  mysql_storage_new:
+  web_new:

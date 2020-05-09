@@ -1,2 +1,14 @@
 # project
-I used docker compose to build my project. In my project, first i download the mysql image from docker hub using docker pull command. Then download ghost images from docker hub. After that, i lauch two sepearte container using these two images. Then docker compose is launched. Create a directory under the docker compose and create afile with .yml extension. I also add 2 storage with two different container, for the persistent storage.
+Docker project
+This project is based on two container images which are 
+(a) mysql:5.7 and 
+(b) postfixadmin:latest.
+For the above image you have to use "docker push kshitizlinux/postfixadmin:latest" and "docker push kshitizlinux/mysql:5.7".
+
+Required os:-
+RehHat8,docker-ce and ,docker-compose.
+
+Command "docker-compose up -d"
+After running this command 
+bydefault setup password is topsecret99.
+
